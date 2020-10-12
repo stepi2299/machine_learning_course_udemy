@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
 
 dataset = pd.read_csv('Position_Salaries.csv')
-X = dataset.iloc[:, 1:-1].values # we are taking all columns except last one
+X = dataset.iloc[:, 1:-1].values  # we are taking all columns except last one
 Y = dataset.iloc[:, -1].values  # values of the last column
 
 # preparing dataset for feature scaling
