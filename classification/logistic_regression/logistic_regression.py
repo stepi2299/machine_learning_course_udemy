@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 
-dataset = pd.read_csv('Social_Network_Ads.csv')
+dataset = pd.read_csv('..\Social_Network_Ads.csv')
 X = dataset.iloc[:, :-1].values
 Y = dataset.iloc[:, -1].values
 
@@ -20,7 +20,7 @@ X_test = sc.fit_transform(X_test)
 classifier = LogisticRegression(random_state=0)  # how far without parameters we are creating object
 classifier.fit(X_train, Y_train)
 
-"""
+
 # Predict a new result
 y_uno_pred = classifier.predict(sc.transform([[30, 8700]]))  # i have to remember to transform the data that i check if i did feature scaling earlier
 print(y_uno_pred)
@@ -37,6 +37,8 @@ print(cm)
 a_s = accuracy_score(Y_test, y_pred)  # return a value of accuracy (1 is the highest value)
 print(a_s)  # it returns how many corrected predictions we have in percentage
 
+
+"""
 # Visualising the Training set result
 from matplotlib.colors import ListedColormap
 X_set, y_set = sc.inverse_transform(X_train), Y_train
