@@ -6,3 +6,4 @@ apyori
 nltk
 tensorflow
 xlrd
+xgboost
