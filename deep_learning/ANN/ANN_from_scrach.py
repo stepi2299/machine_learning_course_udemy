@@ -61,7 +61,7 @@ def forward(X, W1, W2, W3, b1, b2, b3):
     return Z1, A1, Z2, A2, Z3, A3, y_hat
 
 def J(y, y_hat):
-    return np.sum(-y * np.log(y_hat))
+    return -sum([y[i]*np.log(y_hat[i]) for i in range(len(y))])
 
 
 # Backprojecting
@@ -90,13 +90,13 @@ def update(w3, w2, w1, b3, b2, b1, dw3, dw2, dw1, db3, db2, db1, alpha=0.001):
 def accuracy(y, y_hat):
     j = 0
     for i in range(m):
-        if y_hat[0][i] < 0.67:
-            y_hat[0][i] = 0
-        elif (y_hat[0][i] >= 0.67) and (y_hat[0][i] < 1.4):
-            y_hat[0][i] = 1
-        else:
-            y_hat[0][i] = 2
-        if y_hat[0][i] == y[0][i]:
+        lok_max = 0
+        c_max = 0
+        for c in range(3):
+            if y_hat[c][i] > lok_max:
+                lok_max = y_hat[c][i]
+                c_max = c
+        if c_max == y[0][i]:
             j += 1
     return j/m * 100
 
