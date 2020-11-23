@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.datasets import make_classification
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
 
 # data generation
 m = 300
@@ -9,7 +12,12 @@ data = make_classification(n_samples=m, n_features=4, n_informative=3, n_redunda
 X = data[0]
 X = X.transpose()
 y = data[1]
-y = y.reshape(1, m)
+y = y.reshape(m, 1)
+print(y)
+ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [0])], remainder='passthrough')  # we are transforming
+y = np.array(ct.fit_transform(y))
+y.
+print(y)
 
 # initialization of weights
 np.random.seed(0)
@@ -61,7 +69,7 @@ def forward(X, W1, W2, W3, b1, b2, b3):
     return Z1, A1, Z2, A2, Z3, A3, y_hat
 
 def J(y, y_hat):
-    return -sum([y[i]*np.log(y_hat[i]) for i in range(len(y))])
+    return -sum(y[i]*np.log(y_hat[i]))
 
 
 # Backprojecting
